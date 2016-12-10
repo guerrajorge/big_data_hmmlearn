@@ -1,3 +1,8 @@
+Modified HMM for Big-Data Class 
+========
+Using pyspark to intialized the transion, emission and prior matrix for the Gaussian HMM
+
+
 hmmlearn |travis| |appveyor|
 ========
 

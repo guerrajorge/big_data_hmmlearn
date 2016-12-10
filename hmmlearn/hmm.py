@@ -22,6 +22,9 @@ from sklearn.utils import check_random_state
 from .base import _BaseHMM
 from .utils import iter_from_X_lengths, normalize
 
+from pyspark import SparkContext
+from pyspark.mllib.clustering import KMeans, KMeansModel
+
 __all__ = ["GMMHMM", "GaussianHMM", "MultinomialHMM"]
 
 COVARIANCE_TYPES = frozenset(("spherical", "diag", "full", "tied"))
