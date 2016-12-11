@@ -420,11 +420,12 @@ class _BaseHMM(BaseEstimator):
         self : object
             Returns self.
         """
-        X = check_array(X)
+        # X = check_array(X)
         self._init(X, lengths=lengths)
         self._check()
 
         self.monitor_ = ConvergenceMonitor(self.tol, self.n_iter, self.verbose)
+        print('starting iterations')
         for iter in range(self.n_iter):
             stats = self._initialize_sufficient_statistics()
             curr_logprob = 0
@@ -440,12 +441,14 @@ class _BaseHMM(BaseEstimator):
 
             # XXX must be before convergence check, because otherwise
             #     there won't be any updates for the case ``n_iter=1``.
+            print('m step')
             self._do_mstep(stats)
 
             self.monitor_.report(curr_logprob)
             if self.monitor_.converged:
                 break
 
+        print('finished hmm calculations')
         return self
 
     def _do_viterbi_pass(self, framelogprob):

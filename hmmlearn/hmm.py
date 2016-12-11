@@ -22,8 +22,8 @@ from sklearn.utils import check_random_state
 from .base import _BaseHMM
 from .utils import iter_from_X_lengths, normalize
 
-from pyspark import SparkContext
-from pyspark.mllib.clustering import KMeans, KMeansModel
+# from pyspark import SparkContext
+# from pyspark.mllib.clustering import KMeans, KMeansModel
 
 __all__ = ["GMMHMM", "GaussianHMM", "MultinomialHMM"]
 
@@ -203,7 +203,8 @@ class GaussianHMM(_BaseHMM):
         self.n_features = n_features
         if 'm' in self.init_params or not hasattr(self, "means_"):
             kmeans = cluster.KMeans(n_clusters=self.n_components,
-                                    random_state=self.random_state)
+                                    random_state=self.random_state, n_jobs=-1, verbose=True)
+            print 'training kmeans algorithm'
             kmeans.fit(X)
             self.means_ = kmeans.cluster_centers_
         if 'c' in self.init_params or not hasattr(self, "covars_"):
